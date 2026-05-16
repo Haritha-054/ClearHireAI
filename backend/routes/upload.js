@@ -64,12 +64,17 @@ router.post('/', upload.single('file'), async (req, res) => {
       contentType: req.file.mimetype,
     })
 
-    const mlResponse = await axios.post(`${ML_SERVICE_URL}/api/parse`, formData, {
-      headers: {
-        ...formData.getHeaders(),
-      },
-      timeout: 60000,
-    })
+    const mlResponse = await axios.post(
+  'https://clearhireai-1.onrender.com/api/parse',
+  formData,
+  {
+    headers: {
+      ...formData.getHeaders(),
+    },
+    maxBodyLength: Infinity,
+    timeout: 120000,
+  }
+)
 
     // Clean up temp file
     fs.unlink(filePath, (err) => {
@@ -84,13 +89,6 @@ router.post('/', upload.single('file'), async (req, res) => {
     try { fs.unlinkSync(filePath) } catch {}
 
     console.error('ML service error:', error.message)
-
-    if (error.code === 'ECONNREFUSED') {
-      return res.status(503).json({
-        error: 'ML parsing service is not running. Please start the Python service on port 8000.',
-        hint: 'Run: cd ml-service && python app.py',
-      })
-    }
 
     return res.status(500).json({
       error: error.response?.data?.error || error.message || 'Failed to parse resume',
