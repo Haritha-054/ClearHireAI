@@ -46,7 +46,7 @@ const upload = multer({
 })
 
 // POST /api/upload
-router.post('/', upload.single('resume'), async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' })
   }
@@ -64,7 +64,7 @@ router.post('/', upload.single('resume'), async (req, res) => {
       contentType: req.file.mimetype,
     })
 
-    const mlResponse = await axios.post(`${ML_SERVICE_URL}/parse`, formData, {
+    const mlResponse = await axios.post(`${ML_SERVICE_URL}/api/parse`, formData, {
       headers: {
         ...formData.getHeaders(),
       },
