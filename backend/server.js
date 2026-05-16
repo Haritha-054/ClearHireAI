@@ -22,18 +22,41 @@ app.use('/api/upload', uploadRouter)
 
 // New Evaluation Endpoint
 app.post('/api/evaluate', async (req, res) => {
-  const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'https://clearhireai-1.onrender.com';
+
   try {
-    const axios = require('axios');
-    const response = await axios.post(`${ML_SERVICE_URL}/evaluate`, req.body);
-    res.json(response.data);
+
+    console.log("REQ BODY:", req.body)
+
+    const response = await axios.post(
+      'https://clearhireai-1.onrender.com/api/evaluate',
+      req.body,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 120000,
+      }
+    )
+
+    console.log("ML RESPONSE:", response.data)
+
+    return res.json(response.data)
+
   } catch (error) {
-    console.error('Evaluation proxy error:', error.message);
-    res.status(error.response?.status || 500).json({ 
-      error: error.response?.data?.error || 'Evaluation service error' 
-    });
+
+    console.error(
+      'Evaluation proxy error:',
+      error.response?.data || error.message
+    )
+
+    return res.status(500).json({
+      error:
+        error.response?.data ||
+        error.message ||
+        'Evaluation failed'
+    })
   }
-});
+})
 
 app.get('/api/health', (req, res) => {
   res.json({
