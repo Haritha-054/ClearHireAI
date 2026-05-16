@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const path = require('path')
+const axios = require('axios')
 const uploadRouter = require('./routes/upload')
 
 const app = express()
