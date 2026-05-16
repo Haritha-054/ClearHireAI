@@ -454,12 +454,12 @@ const ResultsPage = ({ data, onReset }) => {
             <AnimatePresence mode="wait">
               {activeTab === 'summary' && (
                 <motion.div key="summary" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
-                  <motion.div className="glass-panel bias-card" style={{ marginBottom: '32px', borderColor: evaluation.bias_analysis.detected ? 'var(--color-red)' : 'var(--color-emerald)' }}>
+                  <motion.div className="glass-panel bias-card" style={{ marginBottom: '32px', borderColor: evaluation.bias_analysis?.detected || false ? 'var(--color-red)' : 'var(--color-emerald)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <span style={{ fontSize: '1.5rem' }}>⚖️</span>
                       <div>
                         <h4 style={{ margin: 0, fontSize: '1.1rem' }}>⚖️ AI Bias Detection</h4>
-                        <p style={{ margin: 0, color: '#aaa', fontSize: '0.9rem' }}>{evaluation.bias_analysis.verdict}</p>
+                        <p style={{ margin: 0, color: '#aaa', fontSize: '0.9rem' }}>{evaluation.bias_analysis?.verdict || "No bias analysis available"}</p>
                       </div>
                     </div>
                   </motion.div>

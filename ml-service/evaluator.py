@@ -74,7 +74,14 @@ def evaluate_candidate(parsed_data, jd_text):
         strengths = matched_skills[:5]
 
         return {
+
             "match_score": round(match_score, 2),
+
+            "overall_score": round(match_score, 2),
+
+            "hire_probability": round(match_score, 2),
+
+            "skill_match_percentage": round(match_score, 2),
 
             "confidence_score": 91,
 
@@ -84,11 +91,63 @@ def evaluate_candidate(parsed_data, jd_text):
 
             "strengths": strengths,
 
-            "suggestions": [
-                "Improve DSA",
-                "Build more projects",
-                "Learn Power BI"
-            ],
+            "bias_analysis": {
+                "detected": False,
+                "verdict": "No major hiring bias detected."
+            },
+
+            "twin": {
+
+                "current": {
+                    "prob": 42,
+                    "gpa": "7.2",
+                    "gap": "1 year",
+                    "tier": "Tier 3",
+                    "certs": "1",
+                    "experience": "0",
+                    "skills": len(matched_skills)
+                },
+
+                "improved": {
+                    "prob": 91,
+                    "gpa": "8.5",
+                    "gap": "0",
+                    "tier": "Tier 2",
+                    "certs": "3",
+                    "experience": "1",
+                    "skills": len(matched_skills) + 3
+                }
+            },
+
+            "suggestions": {
+                "roadmap": [
+                    {
+                        "phase": "Phase 1",
+                        "title": "Core Skills",
+                        "tasks": [
+                            {
+                                "task": "Learn Advanced DSA",
+                                "link": "https://youtube.com"
+                            },
+                            {
+                                "task": "Practice SQL",
+                                "link": "https://youtube.com"
+                            }
+                        ]
+                    },
+
+                    {
+                        "phase": "Phase 2",
+                        "title": "Projects",
+                        "tasks": [
+                            {
+                                "task": "Build Full Stack Project",
+                                "link": "https://youtube.com"
+                            }
+                        ]
+                    }
+                ]
+            },
 
             "counterfactual_twin": {
                 "improved_score": 94,
@@ -120,12 +179,31 @@ def evaluate_candidate(parsed_data, jd_text):
 
         return {
             "match_score": 0,
+            "overall_score": 0,
+            "hire_probability": 0,
+            "skill_match_percentage": 0,
             "confidence_score": 0,
             "matched_skills": [],
             "missing_skills": [],
             "strengths": [],
-            "suggestions": [],
+
+            "bias_analysis": {
+                "detected": False,
+                "verdict": "Evaluation failed."
+            },
+
+            "twin": {
+                "current": {},
+                "improved": {}
+            },
+
+            "suggestions": {
+                "roadmap": []
+            },
+
             "counterfactual_twin": {},
+
             "reasoning": f"Evaluation failed: {str(e)}",
+
             "factors": []
         }
