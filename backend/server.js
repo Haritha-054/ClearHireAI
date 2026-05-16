@@ -22,7 +22,7 @@ app.use('/api/upload', uploadRouter)
 
 // New Evaluation Endpoint
 app.post('/api/evaluate', async (req, res) => {
-  const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:8000';
+  const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'https://clearhireai-1.onrender.com';
   try {
     const axios = require('axios');
     const response = await axios.post(`${ML_SERVICE_URL}/evaluate`, req.body);

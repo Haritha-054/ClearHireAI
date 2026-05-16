@@ -373,7 +373,7 @@ const ResultsPage = ({ data, onReset }) => {
   const handleEvaluate = async () => {
     setIsEvaluating(true); setEvalError(null);
     try {
-      const resp = await axios.post('/api/evaluate', { parsed_data: parsed, jd_text: jdText });
+      const resp = await axios.post('https://clearhireai.onrender.com/api/evaluate', { parsed_data: parsed, jd_text: jdText });
       setEvaluation(resp.data); setActiveTab('summary');
       setSimScore(resp.data.hire_probability);
     } catch (err) { setEvalError('AI Evaluation offline.'); } finally { setIsEvaluating(false); }
