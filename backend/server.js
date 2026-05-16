@@ -12,7 +12,7 @@ app.use("/api/ai", aiRoutes);
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: '*',
   credentials: true,
 }))
 app.use(express.json())
