@@ -161,10 +161,8 @@ const ResultsPage = ({ data, onReset }) => {
     // Try sending transcription to Ollama for Voice Analysis
     let ollamaFeedback = "Voice analysis unavailable.";
     try {
-      const res = await axios.post('http://localhost:11434/api/generate', {
-        model: 'phi3', // Lightweight model to fit within the memory constraint
+      const res = await axios.post('https://clearhireai.onrender.com/api/ai/chat', {
         prompt: `Analyze this interview pitch transcript for confidence, clarity, and tone. Provide a 1-sentence critical feedback: "${finalSpeech}"`,
-        stream: false
       });
       ollamaFeedback = res.data.response;
     } catch (e) {
@@ -399,10 +397,8 @@ const ResultsPage = ({ data, onReset }) => {
       USER QUESTION: "${chatQuery}"
       INSTRUCTION: Answer the user's question directly and concisely (1-3 sentences). Use the context to explain why they got this score or how they can improve. Be professional but helpful.`;
       
-      const res = await axios.post('http://localhost:11434/api/generate', {
-        model: 'phi3',
-        prompt: prompt,
-        stream: false
+      const res = await axios.post('https://clearhireai.onrender.com/api/ai/chat', {
+        prompt: prompt
       });
       
       setChatAnswer(res.data.response);

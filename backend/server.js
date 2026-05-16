@@ -7,6 +7,9 @@ const uploadRouter = require('./routes/upload')
 const app = express()
 const PORT = process.env.PORT || 5000
 
+const aiRoutes = require("./routes/ai");
+app.use("/api/ai", aiRoutes);
+
 // Middleware
 app.use(cors({
   origin: ['http://localhost:5173', 'http://localhost:3000'],
