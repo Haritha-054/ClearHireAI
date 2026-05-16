@@ -64,7 +64,7 @@ const UploadPage = ({ onParseComplete }) => {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = awaitaxios.post('https://clearhireai.onrender.com/api/upload', formData, {
+      const response = await axios.post('https://clearhireai.onrender.com/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 60000,
       })
